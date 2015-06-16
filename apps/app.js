@@ -2,14 +2,12 @@ $(function() {
  
  var myData = '';
  var searchTerm = '';
- var urlGet = '';
 
 
 //----EVENTS-------//
 $('#submit-btn').click(function() {
 	$('#search-results').empty();
 	searchTerm = $('#query').val();
-	urlGet = 'http://www.omdbapi.com/?s='+searchTerm+'&r=json';
 	getResults();
 });
 
@@ -23,11 +21,13 @@ function showResults(data) {
 }
 
 function getResults(data) {
-	$.getJSON(urlGet, 
-		function(data) {
-		  myData = data.Search;
-		 showResults();
-		});
+
+var params = { s: searchTerm, r: 'json' }; // a JS object containing name:value pairs
+var url = 'http://www.omdbapi.com';
+	$.getJSON(url, params, function(data) {
+			myData = data.Search;
+			showResults();
+	});
 }
 
 
